@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DS Locações - Aluguel de motos para aplicativos. Gestão completa de frota, contratos digitais e suporte 24h.">
+    <meta name="keywords" content="aluguel de motos, motos para aplicativos, locação de motos, entregas, ifood, uber, 99">
+    <title>DS Locações - Aluguel de Motos para Aplicativos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-container">
+                    <span class="logo-text">DS LOCAÇÕES</span>
+                    <div class="logo-slogan">Aluguel de motos para aplicativos</div>
+                </div>
+            </a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#planos">Planos</a></li>
+                    <li><a href="#motos">Nossas Motos</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="#dashboard" class="btn-admin">Área do Cliente</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/motos/frota-motos.jpg'); background-size: cover; background-position: center;">
+            <div class="container">
+                <h1>DS LOCAÇÕES</h1>
+                <p>Aluguel de motos para aplicativos com gestão completa e suporte 24h</p>
+                <div class="hero-buttons">
+                    <a href="#planos" class="btn">Ver Planos</a>
+                    <a href="#contato" class="btn btn-outline">Fale Conosco</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefícios -->
+        <section class="benefits">
+            <div class="container">
+                <h2 class="section-title">Por que escolher a DS Locações?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Seguro Incluso</h3>
+                        <p>Todas as nossas motos possuem seguro completo para sua tranquilidade</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Manutenção Inclusa</h3>
+                        <p>Manutenção preventiva e corretiva sem custo adicional</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Suporte 24h</h3>
+                        <p>Equipe de apoio disponível 24 horas por dia, 7 dias por semana</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <h3>Contrato Digital</h3>
+                        <p>Contrato assinado digitalmente com validade jurídica</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Planos -->
+        <section class="plans" id="planos">
+            <div class="container">
+                <h2 class="section-title">Nossos Planos</h2>
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3>Plano Básico</h3>
+                            <div class="plan-price">R$ 1.299<span>/mês</span></div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Honda CG 160</li>
+                            <li><i class="fas fa-check"></i> Seguro básico</li>
+                            <li><i class="fas fa-check"></i> Manutenção preventiva</li>
+                            <li><i class="fas fa-times"></i> Suporte 24h</li>
+                            <li><i class="fas fa-times"></i> Documentação digital</li>
+                        </ul>
+                        <a href="#contato" class="btn">Contratar</a>
+                    </div>
+                    <div class="plan-card featured">
+                        <div class="plan-badge">Mais Popular</div>
+                        <div class="plan-header">
+                            <h3>Plano Completo</h3>
+                            <div class="plan-price">R$ 1.599<span>/mês</span></div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Honda CG 160 ou Yamaha Factor 150</li>
+                            <li><i class="fas fa-check"></i> Seguro completo</li>
+                            <li><i class="fas fa-check"></i> Manutenção completa</li>
+                            <li><i class="fas fa-check"></i> Suporte 24h</li>
+                            <li><i class="fas fa-check"></i> Documentação digital</li>
+                        </ul>
+                        <a href="#contato" class="btn">Contratar</a>
+                    </div>
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3>Plano Premium</h3>
+                            <div class="plan-price">R$ 1.899<span>/mês</span></div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Honda Biz 125 ou similar</li>
+                            <li><i class="fas fa-check"></i> Seguro premium</li>
+                            <li><i class="fas fa-check"></i> Manutenção completa</li>
+                            <li><i class="fas fa-check"></i> Suporte 24h prioritário</li>
+                            <li><i class="fas fa-check"></i> Documentação digital + baú</li>
+                        </ul>
+                        <a href="#contato" class="btn">Contratar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motos -->
+        <section class="motos-section" id="motos">
+            <div class="container">
+                <h2 class="section-title">Nossas Motos</h2>
+                <p class="section-subtitle">Frota diversificada para atender suas necessidades</p>
+                
+                <div class="motos-grid" id="motosGrid">
+                    <!-- As motos serão carregadas via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre -->
+        <section class="about" id="sobre">
+            <div class="container">
+                <h2 class="section-title">Sobre Nós</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>DS Locações - Especialistas em Motos para Aplicativos</h2>
+                        <p>A DS Locações nasceu com o objetivo de oferecer soluções completas para motoboys e entregadores que trabalham com aplicativos. Nossa missão é proporcionar uma experiência de locação segura, transparente e eficiente.</p>
+                        <p>Com gestão profissional de frota, contratos digitais e suporte 24h, garantimos que você possa focar no que realmente importa: sua renda.</p>
+                        <div class="contact-highlight">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Telefones</h4>
+                                    <p><a href="tel:+558589499750" class="phone-link">(85) 8949-9750</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/frota-motos.jpg" alt="Frota de motos DS Locações">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato -->
+        <section class="contact" id="contato">
+            <div class="container">
+                <h2 class="section-title">Entre em Contato</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Fale Conosco</h3>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>WhatsApp</h4>
+                                    <p><a href="https://api.whatsapp.com/send?phone=%2B558589499750" target="_blank" class="phone-link">(85) 8949-9750</a></p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Horário de Atendimento</h4>
+                                    <p>Segunda a Sexta: 8h às 18h</p>
+                                    <p>Sábado: 8h às 12h</p>
+                                    <p>Suporte emergencial: 24h</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Siga-nos</h3>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/ds_locacoes85" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://api.whatsapp.com/send?phone=%2B558589499750" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.facebook.com/share/16SEdaRRyr/?mibextid=wwXIfr" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Solicite Informações</h3>
+                        <form name="contato" method="POST" netlify action="/sucesso.html">
+                            <input type="hidden" name="form-name" value="contato">
+                            
+                            <!-- Honeypot field -->
+                            <div class="hidden">
+                                <label>Não preencha este campo: <input name="bot-field"></label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="nome">Nome Completo *</label>
+                                <input type="text" id="nome" name="nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone">Telefone *</label>
+                                <input type="tel" id="telefone" name="telefone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="plano">Plano de Interesse</label>
+                                <select id="plano" name="plano">
+                                    <option value="">Selecione um plano</option>
+                                    <option value="basico">Plano Básico - R$ 1.299/mês</option>
+                                    <option value="completo">Plano Completo - R$ 1.599/mês</option>
+                                    <option value="premium">Plano Premium - R$ 1.899/mês</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mensagem">Mensagem</label>
+                                <textarea id="mensagem" name="mensagem" placeholder="Conte-nos sobre suas necessidades..."></textarea>
+                            </div>
+                            <button type="submit" class="btn">Enviar Mensagem</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DS Locações</h3>
+                    <p>Aluguel de motos para aplicativos com gestão completa e suporte 24h.</p>
+                    <div class="services-tags">
+                        <span class="service-tag">Aluguel</span>
+                        <span class="service-tag">Aplicativos</span>
+                        <span class="service-tag">Gestão</span>
+                        <span class="service-tag">Suporte</span>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#planos">Planos</a></li>
+                        <li><a href="#motos">Nossas Motos</a></li>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Serviços</h3>
+                    <ul>
+                        <li><a href="#">Aluguel de Motos</a></li>
+                        <li><a href="#">Gestão de Frota</a></li>
+                        <li><a href="#">Contratos Digitais</a></li>
+                        <li><a href="#">Suporte 24h</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fab fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone=%2B558589499750" target="_blank" class="phone-link">(85) 8949-9750</a></li>
+                        <li><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/ds_locacoes85" target="_blank">@ds_locacoes85</a></li>
+                        <li><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/share/16SEdaRRyr/?mibextid=wwXIfr" target="_blank">DS Locações</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; <span id="year"></span> DS Locações. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal da Galeria -->
+    <div class="gallery-modal" id="galleryModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="modal-header">
+                <h3 id="modalMotoName"></h3>
+                <div class="modal-nav">
+                    <button class="nav-btn prev-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="image-counter" id="imageCounter"></span>
+                    <button class="nav-btn next-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="main-image-container">
+                    <img id="mainImage" src="" alt="">
+                </div>
+                <div class="thumbnails" id="thumbnails"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
