@@ -1,44 +1,8 @@
-const motosDataLocal = [
-    {
-        id: 1,
-        name: "Honda CG 160",
-        price: "1.299,00/mês",
-        year: "2023/2024",
-        km: "0-5.000 km",
-        image: "images/motos/honda-cg-1.jpg",
-        location: "Fortaleza - CE",
-        category: "street",
-        features: ["Injeção Eletrônica", "Partida Elétrica", "Baixo Consumo"],
-        gallery: ["images/motos/honda-cg-1.jpg", "images/motos/honda-cg-3.jpg"]
-    },
-    {
-        id: 2,
-        name: "Yamaha Factor 150",
-        price: "1.299,00/mês",
-        year: "2023/2024",
-        km: "0-5.000 km",
-        image: "images/motos/yamaha-factor-1.jpg",
-        location: "Fortaleza - CE",
-        category: "street",
-        features: ["Robusta", "Econômica", "Manutenção Simples"],
-        gallery: ["images/motos/yamaha-factor-1.jpg"]
-    },
-    {
-        id: 3,
-        name: "Honda Biz 125",
-        price: "1.899,00/mês",
-        year: "2023/2024",
-        km: "0-5.000 km",
-        image: "images/motos/honda-biz-1.jpg",
-        location: "Fortaleza - CE",
-        category: "scooter",
-        features: ["Automática", "Econômica", "Baú Incluso"],
-        gallery: ["images/motos/honda-biz-1.jpg"]
-    }
-];
-
+// js/data.js - APENAS GOOGLE SHEETS, SEM DADOS LOCAIS
 async function loadMotosData() {
     try {
+        console.log('🔄 Buscando dados do Google Sheets...');
+        
         const response = await fetch('/.netlify/functions/get-motos');
         
         if (!response.ok) {
@@ -47,17 +11,23 @@ async function loadMotosData() {
         
         const data = await response.json();
         
+        // Verificar se é um array válido
         if (Array.isArray(data) && data.length > 0) {
+            console.log('✅ Dados carregados do Google Sheets:', data.length, 'motos');
             return data;
         } else {
-            return motosDataLocal;
+            // Se não tem dados, retorna array vazio
+            console.log('📭 Planilha vazia ou sem dados');
+            return [];
         }
         
     } catch (error) {
-        return motosDataLocal;
+        console.log('❌ Erro ao carregar do Sheets:', error.message);
+        return []; // Retorna array vazio em caso de erro
     }
 }
 
+// Informações da empresa
 const companyInfo = {
     name: "DS Locações",
     slogan: "Aluguel de motos para aplicativos",
