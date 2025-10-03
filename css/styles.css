@@ -1072,3 +1072,54 @@ footer {
     outline: 2px solid #e53e3e;
     outline-offset: 2px;
 }
+
+/* Estilos para o sistema Google Sheets */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.loading .fa-spinner {
+    color: #e53e3e;
+}
+
+.no-data {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.no-data .fa-motorcycle {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.error {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fed7d7;
+    border-radius: 10px;
+    color: #c53030;
+}
+
+#reloadBtn {
+    transition: all 0.3s ease;
+}
+
+#reloadBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .motos-section .container > div {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #reloadBtn {
+        align-self: stretch;
+        justify-content: center;
+    }
+}

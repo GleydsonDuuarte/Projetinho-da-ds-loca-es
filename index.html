@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo">
@@ -29,14 +28,12 @@
                     <li><a href="#motos">Nossas Motos</a></li>
                     <li><a href="#sobre">Sobre</a></li>
                     <li><a href="#contato">Contato</a></li>
-                    <li><a href="#dashboard" class="btn-admin">Área do Cliente</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero" id="home" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/motos/frota-motos.jpg'); background-size: cover; background-position: center;">
             <div class="container">
                 <h1>DS LOCAÇÕES</h1>
@@ -48,7 +45,6 @@
             </div>
         </section>
 
-        <!-- Benefícios -->
         <section class="benefits">
             <div class="container">
                 <h2 class="section-title">Por que escolher a DS Locações?</h2>
@@ -85,7 +81,6 @@
             </div>
         </section>
 
-        <!-- Planos -->
         <section class="plans" id="planos">
             <div class="container">
                 <h2 class="section-title">Nossos Planos</h2>
@@ -137,19 +132,23 @@
             </div>
         </section>
 
-        <!-- Motos -->
         <section class="motos-section" id="motos">
             <div class="container">
-                <h2 class="section-title">Nossas Motos</h2>
-                <p class="section-subtitle">Frota diversificada para atender suas necessidades</p>
-                
-                <div class="motos-grid" id="motosGrid">
-                    <!-- As motos serão carregadas via JavaScript -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <h2 class="section-title">Nossas Motos</h2>
+                        <p class="section-subtitle">Frota atualizada em tempo real</p>
+                    </div>
+                    <button id="reloadBtn" onclick="reloadMotosData()" class="btn" 
+                            style="background: #10b981; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-sync-alt"></i> Atualizar Frota
+                    </button>
                 </div>
+                
+                <div class="motos-grid" id="motosGrid"></div>
             </div>
         </section>
 
-        <!-- Sobre -->
         <section class="about" id="sobre">
             <div class="container">
                 <h2 class="section-title">Sobre Nós</h2>
@@ -171,13 +170,12 @@
                         </div>
                     </div>
                     <div class="about-image">
-                        <img src="images/frota-motos.jpg" alt="Frota de motos DS Locações">
+                        <img src="images/motos/frota-motos.jpg" alt="Frota de motos DS Locações">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contato -->
         <section class="contact" id="contato">
             <div class="container">
                 <h2 class="section-title">Entre em Contato</h2>
@@ -218,7 +216,6 @@
                         <form name="contato" method="POST" netlify action="/sucesso.html">
                             <input type="hidden" name="form-name" value="contato">
                             
-                            <!-- Honeypot field -->
                             <div class="hidden">
                                 <label>Não preencha este campo: <input name="bot-field"></label>
                             </div>
@@ -256,7 +253,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -306,7 +302,6 @@
         </div>
     </footer>
 
-    <!-- Modal da Galeria -->
     <div class="gallery-modal" id="galleryModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>

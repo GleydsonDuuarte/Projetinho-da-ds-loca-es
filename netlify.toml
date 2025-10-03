@@ -1,13 +1,18 @@
-# netlify.toml
 [build]
   publish = "."
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[build]
+  command = "npm install"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Configuração para forms
 [[headers]]
   for = "/*"
   [headers.values]

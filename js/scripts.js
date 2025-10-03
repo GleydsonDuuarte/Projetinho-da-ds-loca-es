@@ -1,58 +1,99 @@
-// Variáveis globais para a galeria
 let currentMotoIndex = 0;
 let currentImageIndex = 0;
+let motosData = [];
 
-// Função para carregar a seção de motos
-function loadMotosSection() {
+async function loadMotosSection() {
     const motosGrid = document.getElementById('motosGrid');
-    const planoSelect = document.getElementById('plano');
     
-    // Limpar grid
-    motosGrid.innerHTML = '';
+    motosGrid.innerHTML = `
+        <div class="loading" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #e53e3e;"></i>
+            <p style="margin-top: 15px;">Carregando frota de motos...</p>
+        </div>
+    `;
     
-    // Adicionar motos ao grid
-    motosData.forEach((moto, index) => {
-        const motoCard = createMotoCard(moto, index);
-        motosGrid.appendChild(motoCard);
-    });
+    try {
+        motosData = await loadMotosData();
+        motosGrid.innerHTML = '';
+        
+        if (motosData.length === 0) {
+            motosGrid.innerHTML = `
+                <div class="no-data" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <i class="fas fa-motorcycle" style="font-size: 3rem; color: #ccc;"></i>
+                    <p style="margin-top: 15px; color: #666;">Nenhuma moto disponível no momento.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        motosData.forEach((moto, index) => {
+            const motoCard = createMotoCard(moto, index);
+            motosGrid.appendChild(motoCard);
+        });
+        
+    } catch (error) {
+        motosGrid.innerHTML = `
+            <div class="error" style="grid-column: 1/-1; text-align: center; padding: 40px; color: #e53e3e;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p style="margin-top: 15px;">Erro ao carregar as motos. Atualize a página.</p>
+                <button onclick="location.reload()" class="btn" style="margin-top: 15px;">
+                    <i class="fas fa-redo"></i> Tentar Novamente
+                </button>
+            </div>
+        `;
+    }
 }
 
-// Função para criar card da moto
 function createMotoCard(moto, index) {
     const card = document.createElement('div');
     card.className = 'moto-card';
     
+    const gallery = Array.isArray(moto.gallery) ? moto.gallery : [moto.image];
+    
     card.innerHTML = `
-        <div class="gallery-badge">
-            <i class="fas fa-images"></i> ${moto.gallery ? moto.gallery.length : '0'} fotos
-        </div>
-        <img src="${moto.image}" alt="${moto.name}" class="moto-image">
+        ${gallery.length > 1 ? `
+            <div class="gallery-badge">
+                <i class="fas fa-images"></i> ${gallery.length} fotos
+            </div>
+        ` : ''}
+        
+        <img src="${moto.image}" alt="${moto.name}" class="moto-image" 
+             onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25856cd63?w=400'">
+        
         <div class="moto-info">
             <h3 class="moto-name">${moto.name}</h3>
-            <div class="moto-price">R$ ${moto.price}</div>
+            <div class="moto-price">${moto.price}</div>
+            
             <div class="moto-details">
                 <span><i class="fas fa-calendar"></i> ${moto.year}</span>
                 <span><i class="fas fa-tachometer-alt"></i> ${moto.km}</span>
             </div>
-            ${moto.features ? `
+            
+            ${moto.features && moto.features.length > 0 ? `
                 <div class="moto-features">
-                    ${moto.features.map(feature => `<span>${feature}</span>`).join('')}
+                    ${moto.features.map(feature => `<span>${feature.trim()}</span>`).join('')}
                 </div>
             ` : ''}
+            
             <div class="moto-location">
                 <i class="fas fa-map-marker-alt"></i> 
                 <span>${moto.location}</span>
             </div>
-            <div class="view-gallery">
-                <i class="fas fa-expand"></i> Ver Galeria
-            </div>
-            <a href="#contato" class="btn" data-moto="${moto.name}" style="margin-top: 15px; display: block; text-align: center;">Tenho Interesse</a>
+            
+            ${gallery.length > 1 ? `
+                <div class="view-gallery">
+                    <i class="fas fa-expand"></i> Ver Galeria
+                </div>
+            ` : ''}
+            
+            <a href="#contato" class="btn" data-moto="${moto.name}" 
+               style="margin-top: 15px; display: block; text-align: center;">
+                Tenho Interesse
+            </a>
         </div>
     `;
     
-    // Evento para abrir galeria - apenas no card, não no botão
     card.addEventListener('click', (e) => {
-        // Não abrir galeria se clicar no botão "Tenho Interesse"
         if (!e.target.closest('.btn')) {
             openGallery(index);
         }
@@ -61,7 +102,32 @@ function createMotoCard(moto, index) {
     return card;
 }
 
-// Funções da Galeria
+async function reloadMotosData() {
+    const reloadBtn = document.getElementById('reloadBtn');
+    if (!reloadBtn) return;
+    
+    const originalText = reloadBtn.innerHTML;
+    reloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Atualizando...';
+    reloadBtn.disabled = true;
+    
+    try {
+        await loadMotosSection();
+        reloadBtn.innerHTML = '<i class="fas fa-check"></i> Atualizado!';
+        
+        setTimeout(() => {
+            reloadBtn.innerHTML = originalText;
+            reloadBtn.disabled = false;
+        }, 2000);
+        
+    } catch (error) {
+        reloadBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro!';
+        setTimeout(() => {
+            reloadBtn.innerHTML = originalText;
+            reloadBtn.disabled = false;
+        }, 2000);
+    }
+}
+
 function openGallery(motoIndex) {
     currentMotoIndex = motoIndex;
     currentImageIndex = 0;
@@ -161,21 +227,17 @@ function setupGalleryEvents() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
-    // Fechar modal
     closeBtn.onclick = closeGallery;
     
-    // Fechar ao clicar fora
     modal.onclick = (e) => {
         if (e.target === modal) {
             closeGallery();
         }
     };
     
-    // Navegação
     prevBtn.onclick = prevImage;
     nextBtn.onclick = nextImage;
     
-    // Navegação por teclado
     document.addEventListener('keydown', (e) => {
         if (modal.style.display === 'block') {
             if (e.key === 'Escape') closeGallery();
@@ -185,12 +247,10 @@ function setupGalleryEvents() {
     });
 }
 
-// Configuração do formulário Netlify
 function setupForm() {
     const form = document.querySelector('form[name="contato"]');
     if (form) {
         form.addEventListener('submit', function(e) {
-            // Validação básica
             const nome = document.getElementById('nome').value;
             const telefone = document.getElementById('telefone').value;
             
@@ -199,30 +259,19 @@ function setupForm() {
                 alert('Por favor, preencha pelo menos o nome e telefone.');
                 return;
             }
-            
-            console.log('Formulário sendo enviado para Netlify...');
-            // O Netlify cuida do resto e redireciona para sucesso.html
         });
     }
 }
 
-// Função para inicializar o site
-function init() {
-    // Carregar seção de motos
-    loadMotosSection();
-    
-    // Configurar eventos da galeria
+async function init() {
+    await loadMotosSection();
     setupGalleryEvents();
-    
-    // Configurar formulário
     setupForm();
     
-    // Menu Mobile
     document.querySelector('.mobile-menu').addEventListener('click', function() {
         document.querySelector('nav ul').classList.toggle('show');
     });
     
-    // Navegação suave para âncoras
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -237,21 +286,17 @@ function init() {
                     behavior: 'smooth'
                 });
                 
-                // Fechar menu mobile se estiver aberto
                 document.querySelector('nav ul').classList.remove('show');
             }
         });
     });
     
-    // Preencher automaticamente o campo de plano quando clicar em "Tenho Interesse"
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('btn') && e.target.hasAttribute('data-moto')) {
             const motoName = e.target.getAttribute('data-moto');
             const select = document.getElementById('plano');
             
-            // Encontrar o plano correspondente baseado na moto
-            let planoValue = 'completo'; // padrão
-            
+            let planoValue = 'completo';
             if (motoName.includes('Biz') || motoName.includes('NMax')) {
                 planoValue = 'premium';
             } else if (motoName.includes('CG') || motoName.includes('Factor')) {
@@ -260,7 +305,6 @@ function init() {
             
             select.value = planoValue;
             
-            // Rolar até o formulário
             document.getElementById('contato').scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
@@ -268,15 +312,11 @@ function init() {
         }
     });
     
-    // Atualizar ano atual
     updateFooterInfo();
 }
 
-// Função para atualizar informações do rodapé
 function updateFooterInfo() {
-    // Atualiza o ano atual no rodapé
     document.getElementById("year").textContent = new Date().getFullYear();
 }
 
-// Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', init);
