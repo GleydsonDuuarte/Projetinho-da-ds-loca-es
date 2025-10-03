@@ -1,66 +1,70 @@
-const { GoogleSpreadsheet } = require('google-spreadsheet');
-
+// netlify/functions/get-motos.js - VERSÃO SIMPLIFICADA
 exports.handler = async function(event, context) {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Content-Type': 'application/json',
   };
 
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: ''
-    };
-  }
-
   try {
+    // ID da sua planilha
     const SHEET_ID = '1B7mt7DR2xl3NEGzv8ycpdFGDY7txl2jP-ROkG85lhH4';
     
-    const doc = new GoogleSpreadsheet(SHEET_ID);
-    await doc.loadInfo();
+    // URL da API pública do Google Sheets
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
     
-    let sheet;
-    if (doc.sheetsByTitle['Motos']) {
-      sheet = doc.sheetsByTitle['Motos'];
-    } else if (doc.sheetsByTitle['motos']) {
-      sheet = doc.sheetsByTitle['motos'];
-    } else {
-      sheet = doc.sheetsByIndex[0];
+    console.log('📊 Buscando dados da planilha...');
+    
+    const response = await fetch(url);
+    const text = await response.text();
+    
+    // Remove o prefixo que o Google Sheets adiciona
+    const json = JSON.parse(text.substring(47).slice(0, -2));
+    
+    const rows = json.table.rows;
+    
+    if (!rows || rows.length === 0) {
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify([])
+      };
     }
     
-    const rows = await sheet.getRows();
-    
+    // Converter dados da planilha
     const motos = rows.map((row, index) => {
-      const rawData = row._rawData || [];
+      const cells = row.c || [];
       
       return {
         id: index + 1,
-        name: rawData[0] || `Moto ${index + 1}`,
-        price: rawData[1] || 'Consulte',
-        year: rawData[2] || '2024',
-        km: rawData[3] || '0-5.000 km',
-        image: rawData[4] || 'https://images.unsplash.com/photo-1558618666-fcd25856cd63?w=400',
-        location: rawData[7] || 'Fortaleza - CE',
-        category: rawData[6] || 'street',
-        features: (rawData[5] || '').split(',').filter(f => f.trim()),
-        gallery: (rawData[8] || rawData[4] || '').split(',').filter(g => g.trim())
+        name: cells[0]?.v || `Moto ${index + 1}`,
+        price: cells[1]?.v || 'Consulte',
+        year: cells[2]?.v || '2024',
+        km: cells[3]?.v || '0-5.000 km',
+        image: cells[4]?.v || 'https://images.unsplash.com/photo-1558618666-fcd25856cd63?w=400',
+        location: cells[7]?.v || 'Fortaleza - CE',
+        category: cells[6]?.v || 'street',
+        features: (cells[5]?.v || '').split(',').filter(f => f.trim()),
+        gallery: (cells[8]?.v || cells[4]?.v || '').split(',').filter(g => g.trim())
       };
-    }).filter(moto => moto.name && moto.name !== 'Moto 1' && moto.name !== 'nome');
+    }).filter(moto => moto.name && moto.name !== 'nome');
 
+    console.log(`✅ ${motos.length} motos carregadas`);
+    
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify(motos)
     };
+    
   } catch (error) {
+    console.error('❌ Erro:', error);
+    
     return {
       statusCode: 500,
       headers,
       body: JSON.stringify({ 
-        error: 'Erro ao carregar dados da planilha',
+        error: 'Erro ao carregar dados',
         message: error.message
       })
     };
